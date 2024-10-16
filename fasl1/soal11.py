@@ -11,7 +11,7 @@ def coin_combination(n, coins, current_comb=[]):
 
 if __name__ == '__main__':
     coins = [2, 5, 10]
-    n = 10
+    n = 17
 
     coin_combination(n, coins)
 
