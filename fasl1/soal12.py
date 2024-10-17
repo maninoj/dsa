@@ -1,5 +1,6 @@
 def coin_combination_no_repeating(n, coins, current_comb=[], unique_comb=set()):
     if n == 0:
+        # add to set for sub repeated arrays
         unique_comb.add(tuple(sorted(current_comb)))
         return
 

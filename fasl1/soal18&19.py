@@ -2,6 +2,7 @@ def duplicate(s):
     rep = ""
     temp = ""
 
+    # check len
     if len(s) == 1 or len(s) == 0:
         print(True)
         return
@@ -11,6 +12,7 @@ def duplicate(s):
             rep = s[0, i]
             break
 
+    # check duplicate
     for i in range(0, len(s), len(rep)):
         temp = s[i, i+len(rep)]
         if not temp == rep:

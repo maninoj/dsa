@@ -6,6 +6,7 @@ def coin_combination(n, coins, current_comb=[]):
         return
 
     for coin in coins:
+        # recall the func for other coins
         coin_combination(n-coin, coins, current_comb+[coin])
 
 
