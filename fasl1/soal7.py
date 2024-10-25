@@ -3,3 +3,7 @@ def gcd(a, b):
         return a
 
     return gcd(b, a % b)
+
+
+if __name__ == '__main__':
+    print(gcd(6, 14))

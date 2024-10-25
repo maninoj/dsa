@@ -1,13 +1,20 @@
-def generate_sub(arr, index=0, curr_sub=[]):
-    print(curr_sub)
+def subsets(s):
+    if len(s) == 0:
+        return [[]]
 
-    for i in range(index, len(arr)):
-        curr_sub.append(arr[i])
-        generate_sub(arr, index+1, curr_sub)
+    first = s[0]
+    rest = s[1:]
 
-        # pop to bring back
-        curr_sub.pop()
+    without_first = subsets(rest)
+
+    with_first = [[first] + subset for subset in without_first]
+
+    return without_first + with_first
 
 
 if __name__ == '__main__':
-    generate_sub([1, 2, 3])
+    my_set = [1, 2, 3]
+    result = subsets(my_set)
+
+    for subset in result:
+        print(subset)

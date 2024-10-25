@@ -6,5 +6,8 @@ def average(arr, n):
 
     sum = arr[n-1] + ((n-1)*average(arr, n-1))
     
-    return sum
+    return sum / n
 
+
+if __name__ == '__main__':
+    print(average([2,5,9,6], 4))
