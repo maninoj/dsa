@@ -1,9 +1,11 @@
+import java.util.Arrays;
+
 public class BigNumber {
-    private byte[] digits;
+    private int[] digits;
     private boolean negative;
 
     public BigNumber(){
-        this.digits = new byte[]{0};
+        this.digits = new int[]{0};
         this.negative = false;
     }
 
@@ -14,22 +16,13 @@ public class BigNumber {
         } else {
             this.negative = false;
         }
-        this.digits = toDigitArray(number);
-    }
 
-    public BigNumber(int[] a, boolean neg){
-        this.digits = trimLeadingZeros(digits);
-        this.negative = neg;
-    }
-
-    public BigNumber(byte[] a, boolean neg){
-        this.digits = new byte[a.length];
-        for (int i = 0; i < digits.length; i++) {
-            this.digits[i] = a[i];
+        int[] digitArray = new int[bn.length()];
+        for (int i = 0; i < bn.length(); i++) {
+            digitArray[i] = Character.getNumericValue(bn.charAt(i));
         }
 
-        this.digits = trimLeadingZeros(this.digits);
-        this.negative = neg;
+        this.digits = digitArray;
     }
 
     public BigNumber(int a){
@@ -39,7 +32,29 @@ public class BigNumber {
         } else {
             this.negative = false;
         }
-        this.digits = toDigitArray(String.valueOf(a));
+
+        String bn = String.valueOf(a);
+        int[] digitArray = new int[bn.length()];
+        for (int i = 0; i < bn.length(); i++) {
+            digitArray[i] = Character.getNumericValue(bn.charAt(i));
+        }
+
+        this.digits = digitArray;
+    }
+
+    public BigNumber(int[] a, boolean neg){
+        this.digits = trimLeadingZeros(a);
+        this.negative = neg;
+    }
+
+    public BigNumber(byte[] a, boolean neg){
+        this.digits = new int[a.length];
+        for (int i = 0; i < digits.length; i++) {
+            this.digits[i] = a[i];
+        }
+
+        this.digits = trimLeadingZeros(this.digits);
+        this.negative = neg;
     }
 
     public BigNumber add(BigNumber bn){}
@@ -51,6 +66,21 @@ public class BigNumber {
     public BigNumber increment(){}
 
     public BigNumber decrement(){}
+
+    private int[] trimLeadingZeros(int[] digits) {
+        int start = 0;
+        while (start < digits.length - 1 && digits[start] == 0) {
+            start++;
+        }
+
+        return Arrays.copyOfRange(digits, start, digits.length);
+    }
+
+    private int[] extendDigits(int[] digits, int newSize) {
+        int[] extended = new int[newSize];
+        System.arraycopy(digits, 0, extended, newSize - digits.length, digits.length);
+        return extended;
+    }
 
 
 }
