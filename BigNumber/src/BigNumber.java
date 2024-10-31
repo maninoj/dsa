@@ -57,7 +57,21 @@ public class BigNumber {
         this.negative = neg;
     }
 
-    public BigNumber add(BigNumber bn){}
+    public BigNumber add(BigNumber other){
+        int maxSize = Math.max(this.digits.length, other.digits.length) + 1;
+        int[] a = extendDigits(this.digits, maxSize);
+        int[] b = extendDigits(other.digits, maxSize);
+        int[] resultDigits = new int[maxSize];
+        int carry = 0;
+
+        for (int i = maxSize - 1; i >= 0; i--) {
+            int sum = a[i] + b[i] + carry;
+            resultDigits[i] = sum % 10;
+            carry = sum / 10;
+        }
+
+        return new BigNumber(trimLeadingZeros(resultDigits), this.negative);
+    }
 
     public BigNumber subtract(BigNumber bn){}
 
