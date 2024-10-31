@@ -77,7 +77,12 @@ public class BigNumber {
 
     public BigNumber multiplyByOne(int n){}
 
-    public BigNumber increment(){}
+    public BigNumber increment(){
+        BigNumber one = new BigNumber("1");
+        BigNumber result = this.add(one);
+        this.digits = result.digits;
+        this.negative = result.negative;
+    }
 
     public BigNumber decrement(){}
 
