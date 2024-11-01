@@ -73,7 +73,26 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(resultDigits), this.negative);
     }
 
-    public BigNumber subtract(BigNumber bn){}
+    public BigNumber subtract(BigNumber other){
+        int[] a = extendDigits(this.digits, Math.max(this.digits.length, other.digits.length));
+        int[] b = extendDigits(other.digits, a.length);
+        int[] resultDigits = new int[a.length];
+        boolean resultNegative = false;
+
+        int borrow = 0;
+        for (int i = a.length - 1; i >= 0; i--) {
+            int diff = a[i] - b[i] - borrow;
+            if (diff < 0) {
+                diff += 10;
+                borrow = 1;
+            } else {
+                borrow = 0;
+            }
+            resultDigits[i] = diff;
+        }
+
+        return new BigNumber(trimLeadingZeros(resultDigits), resultNegative);
+    }
 
     public BigNumber multiplyByOne(int n){
         int[] resultDigits = new int[this.digits.length + 1];
