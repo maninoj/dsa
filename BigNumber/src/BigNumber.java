@@ -116,7 +116,12 @@ public class BigNumber {
 
     }
 
-    public void decrement(){}
+    public void decrement(){
+        BigNumber one = new BigNumber("1");
+        BigNumber result = this.subtract(one);
+        this.digits = result.digits;
+        this.negative = result.negative;
+    }
 
     private int[] trimLeadingZeros(int[] digits) {
         int start = 0;
