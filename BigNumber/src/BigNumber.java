@@ -75,16 +75,29 @@ public class BigNumber {
 
     public BigNumber subtract(BigNumber bn){}
 
-    public BigNumber multiplyByOne(int n){}
+    public BigNumber multiplyByOne(int n){
+        int[] resultDigits = new int[this.digits.length + 1];
+        int carry = 0;
 
-    public BigNumber increment(){
+        for (int i = this.digits.length - 1; i >= 0; i--) {
+            int product = this.digits[i] * n + carry;
+            resultDigits[i + 1] = product % 10;
+            carry = product / 10;
+        }
+        resultDigits[0] = carry;
+
+        return new BigNumber(trimLeadingZeros(resultDigits), this.negative);
+    }
+
+    public void increment(){
         BigNumber one = new BigNumber("1");
         BigNumber result = this.add(one);
         this.digits = result.digits;
         this.negative = result.negative;
+
     }
 
-    public BigNumber decrement(){}
+    public void decrement(){}
 
     private int[] trimLeadingZeros(int[] digits) {
         int start = 0;
