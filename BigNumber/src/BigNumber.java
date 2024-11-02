@@ -108,6 +108,14 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(resultDigits), this.negative);
     }
 
+    public BigNumber shiftRight(int positions) {
+        if (positions >= this.digits.length) {
+            return new BigNumber();
+        }
+        int[] newDigits = Arrays.copyOfRange(this.digits, 0, this.digits.length - positions);
+        return new BigNumber(trimLeadingZeros(newDigits), this.negative);
+    }
+
     public void increment(){
         BigNumber one = new BigNumber("1");
         BigNumber result = this.add(one);
