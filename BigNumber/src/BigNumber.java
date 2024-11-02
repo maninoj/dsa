@@ -116,6 +116,12 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(newDigits), this.negative);
     }
 
+    public BigNumber shiftLeft(int positions) {
+        int[] newDigits = new int[this.digits.length + positions];
+        System.arraycopy(this.digits, 0, newDigits, positions, this.digits.length);
+        return new BigNumber(trimLeadingZeros(newDigits), this.negative);
+    }
+
     public void increment(){
         BigNumber one = new BigNumber("1");
         BigNumber result = this.add(one);
