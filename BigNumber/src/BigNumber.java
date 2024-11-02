@@ -74,6 +74,11 @@ public class BigNumber {
     }
 
     public BigNumber subtract(BigNumber other){
+        if (this.negative != other.negative) {
+            BigNumber negatedOther = new BigNumber(other.digits, !other.negative);
+            return this.add(negatedOther);
+        }
+
         int[] a = extendDigits(this.digits, Math.max(this.digits.length, other.digits.length));
         int[] b = extendDigits(other.digits, a.length);
         int[] resultDigits = new int[a.length];
@@ -150,6 +155,15 @@ public class BigNumber {
         int[] extended = new int[newSize];
         System.arraycopy(digits, 0, extended, newSize - digits.length, digits.length);
         return extended;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(negative ? "-" : "");
+        for (int digit : digits) {
+            sb.append(digit);
+        }
+        return sb.toString();
     }
 
 
