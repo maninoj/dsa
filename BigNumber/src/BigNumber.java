@@ -1,31 +1,36 @@
 import java.util.Arrays;
 
 public class BigNumber {
-    private int[] digits;
-    private boolean negative;
+    private int[] digits;  //make an array for storage number
+    private boolean negative;  //bool for negative numbers
 
+    //constructor with no given args to initialize an empty array
     public BigNumber(){
         this.digits = new int[]{0};
         this.negative = false;
     }
 
-    public BigNumber(String bn){
-        if (bn.startsWith("-")) {
+    //constructor with string args that write the String in array
+    public BigNumber(String s){
+        //find the negativeness of number
+        if (s.startsWith("-")) {
             this.negative = true;
-            bn = bn.substring(1);
+            s = s.substring(1);
         } else {
             this.negative = false;
         }
 
-        int[] digitArray = new int[bn.length()];
-        for (int i = 0; i < bn.length(); i++) {
-            digitArray[i] = Character.getNumericValue(bn.charAt(i));
+        //write every element of string in array
+        int[] digitArray = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            digitArray[i] = Character.getNumericValue(s.charAt(i));
         }
 
         this.digits = digitArray;
     }
 
     public BigNumber(int a){
+        //find the negativeness of number
         if (a < 0) {
             this.negative = true;
             a = -a;
@@ -33,10 +38,11 @@ public class BigNumber {
             this.negative = false;
         }
 
-        String bn = String.valueOf(a);
-        int[] digitArray = new int[bn.length()];
-        for (int i = 0; i < bn.length(); i++) {
-            digitArray[i] = Character.getNumericValue(bn.charAt(i));
+        //make the int to string and write it into an array
+        String s = String.valueOf(a);
+        int[] digitArray = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            digitArray[i] = Character.getNumericValue(s.charAt(i));
         }
 
         this.digits = digitArray;
@@ -124,9 +130,16 @@ public class BigNumber {
     public BigNumber shiftLeft(int positions) {
         int[] newDigits = new int[this.digits.length + positions];
         System.arraycopy(this.digits, 0, newDigits, positions, this.digits.length);
+
+        for (int k=1; k<=positions; k++) {
+            for (int i = 1; i < newDigits.length; i++) {
+                newDigits[i - 1] = newDigits[i];
+            }
+        }
         return new BigNumber(trimLeadingZeros(newDigits), this.negative);
     }
 
+    //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
         BigNumber result = this.add(one);
@@ -135,6 +148,7 @@ public class BigNumber {
 
     }
 
+    //decrease by one
     public void decrement(){
         BigNumber one = new BigNumber("1");
         BigNumber result = this.subtract(one);
@@ -157,6 +171,7 @@ public class BigNumber {
         return extended;
     }
 
+    //overriding toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(negative ? "-" : "");

@@ -10,27 +10,27 @@ public class Main {
 
         // Test subtraction
         BigNumber difference = num2.subtract(num1);
-        System.out.println("Difference: " + difference);
+        System.out.println("Subtract: " + difference);
 
         // Test multiplication by a single digit
         BigNumber product = num1.multiplyByOne(2);
-        System.out.println("Product (num1 * 2): " + product);
+        System.out.println("Product by 2: " + product);
 
         // Test shift left
         BigNumber shiftedLeft = num1.shiftLeft(3);
-        System.out.println("Shift Left (num1 << 3): " + shiftedLeft);
+        System.out.println("Shift Left in 3 position: " + shiftedLeft);
 
         // Test shift right
         BigNumber shiftedRight = num2.shiftRight(5);
-        System.out.println("Shift Right (num2 >> 5): " + shiftedRight);
+        System.out.println("Shift Right in 5 position: " + shiftedRight);
 
         // Test increment
         num1.increment();
-        System.out.println("Increment (num1++): " + num1);
+        System.out.println("Increment: " + num1);
 
         // Test decrement
         num1.decrement();
-        System.out.println("Decrement (num1--): " + num1);
+        System.out.println("Decrement: " + num1);
 
         // Test with negative numbers
         BigNumber negNum1 = new BigNumber("-12345678901234567890");
@@ -40,6 +40,6 @@ public class Main {
         System.out.println("Negative Sum: " + negSum);
 
         BigNumber negDifference = negNum2.subtract(negNum1);
-        System.out.println("Negative Difference: " + negDifference);
+        System.out.println("Negative Subtract: " + negDifference);
     }
 }
