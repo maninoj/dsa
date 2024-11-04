@@ -13,4 +13,3 @@ def print_pascal_triangle(rows):
 if __name__ == "__main__":
     rows = 5
     print_pascal_triangle(rows)
-    
