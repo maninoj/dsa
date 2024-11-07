@@ -14,4 +14,3 @@ def change_value(a, n):
             arrd[i][j] = a[i][j] - (2 if (i > j and i + j > n - 1) else 0)
             arre[i][j] = a[i][j] + (3 if (j < i and i + j < n - 1) else 0)
             arrf[i][j] = a[i][j] - (3 if (j > i and i + j > n - 1) else 0)
-            
