@@ -171,6 +171,13 @@ public class BigNumber {
         return extended;
     }
 
+    private boolean isZero() {
+        for (int digit : digits) {
+            if (digit != 0) return false;
+        }
+        return true;
+    }
+
     //overriding toString
     @Override
     public String toString() {
