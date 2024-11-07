@@ -156,6 +156,39 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(result), isResultNegative);
     }
 
+    public BigNumber karatsubaMultiply(BigNumber other) {
+        int n = Math.max(this.digits.length, other.digits.length);
+
+        if (n < 10) {
+            return this.multiply(other);
+        }
+
+        int half = n / 2;
+
+        BigNumber a1 = this.shiftRight(half);
+        BigNumber a0 = this.modulusByPowerOf10(half);
+
+        BigNumber b1 = other.shiftRight(half);
+        BigNumber b0 = other.modulusByPowerOf10(half);
+
+        BigNumber z0 = a0.karatsubaMultiply(b0);
+        BigNumber z2 = a1.karatsubaMultiply(b1);
+        BigNumber z1 = (a1.add(a0)).karatsubaMultiply(b1.add(b0)).subtract(z2).subtract(z0);
+
+        BigNumber result = z2.shiftLeft(2 * half).add(z1.shiftLeft(half)).add(z0);
+
+        result.negative = this.negative != other.negative;
+        return result;
+    }
+
+    private BigNumber modulusByPowerOf10(int power) {
+        if (power >= this.digits.length) {
+            return new BigNumber();
+        }
+        int[] resultDigits = Arrays.copyOfRange(this.digits, this.digits.length - power, this.digits.length);
+        return new BigNumber(trimLeadingZeros(resultDigits), false);
+    }
+
     public BigNumber factorial() {
         BigNumber result = new BigNumber("1");
         BigNumber current = new BigNumber(this.digits, this.negative);
