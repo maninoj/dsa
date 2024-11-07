@@ -211,6 +211,25 @@ public class BigNumber {
         return result;
     }
 
+    public BigNumber power(BigNumber exponent) {
+        if (exponent.isZero()) {
+            return new BigNumber("1");
+        }
+
+        BigNumber base = new BigNumber(this.digits, this.negative);
+        BigNumber result = new BigNumber("1");
+
+        while (!exponent.isZero()) {
+            if (exponent.digits[exponent.digits.length - 1] % 2 != 0) {
+                result = result.multiply(base);
+            }
+            exponent = exponent.shiftRight(1);
+            base = base.multiply(base);
+        }
+
+        return result;
+    }
+
     //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
