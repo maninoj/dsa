@@ -156,6 +156,18 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(result), isResultNegative);
     }
 
+    public BigNumber factorial() {
+        BigNumber result = new BigNumber("1");
+        BigNumber current = new BigNumber(this.digits, this.negative);
+
+        while (!current.isZero()) {
+            result = result.multiply(current);
+            current = current.subtract(new BigNumber("1"));
+        }
+
+        return result;
+    }
+
     //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
