@@ -139,6 +139,23 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(newDigits), this.negative);
     }
 
+    public BigNumber multiply(BigNumber other) {
+        int[] result = new int[this.digits.length + other.digits.length];
+
+        for (int i = this.digits.length - 1; i >= 0; i--) {
+            int carry = 0;
+            for (int j = other.digits.length - 1; j >= 0; j--) {
+                int product = this.digits[i] * other.digits[j] + result[i + j + 1] + carry;
+                result[i + j + 1] = product % 10;
+                carry = product / 10;
+            }
+            result[i] += carry;
+        }
+
+        boolean isResultNegative = this.negative != other.negative;
+        return new BigNumber(trimLeadingZeros(result), isResultNegative);
+    }
+
     //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
