@@ -201,6 +201,16 @@ public class BigNumber {
         return result;
     }
 
+    public BigNumber simple_power(int a){
+        BigNumber result = new BigNumber("1");
+
+        for (int i=0; i<a; i++){
+            result = result.multiply(this);
+        }
+
+        return result;
+    }
+
     //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
