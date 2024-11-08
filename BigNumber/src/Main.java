@@ -32,6 +32,26 @@ public class Main {
         num1.decrement();
         System.out.println("Decrement: " + num1);
 
+        // Test divide
+        BigNumber divided = num2.divide(num1);
+        System.out.println("Divided: " + divided);
+
+        // Test Power
+        BigNumber powered = num2.power(new BigNumber("15"));
+        System.out.println("Powered: " + powered);
+
+        // Test Factorial
+        BigNumber facted = (new BigNumber(5)).factorial();
+        System.out.println("Facted: " + facted);
+
+        // Test Multiply
+        BigNumber mult = num2.multiply(num1);
+        System.out.println("Multiply: " + mult);
+
+        // Test karatsuba Multiply
+        BigNumber multkara = num2.karatsubaMultiply(num1);
+        System.out.println("Karamult: " + multkara);
+
         // Test with negative numbers
         BigNumber negNum1 = new BigNumber("-12345678901234567890");
         BigNumber negNum2 = new BigNumber("-98765432109876543210");
