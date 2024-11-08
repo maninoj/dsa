@@ -243,6 +243,30 @@ public class BigNumber {
         return new BigNumber(trimLeadingZeros(result), this.negative);
     }
 
+    public BigNumber divide(BigNumber divisor) {
+        BigNumber dividend = new BigNumber(this.digits, false);
+        BigNumber current = new BigNumber();
+        StringBuilder quotient = new StringBuilder();
+
+        for (int i = 0; i < dividend.digits.length; i++) {
+            current = current.shiftLeft(1).add(new BigNumber(dividend.digits[i]));
+            int count = 0;
+            while (current.compare(divisor) >= 0) {
+                current = current.subtract(divisor);
+                count++;
+            }
+            quotient.append(count);
+        }
+
+        int[] digitArray = new int[quotient.length()];
+        for (int i = 0; i < quotient.length(); i++) {
+            digitArray[i] = Character.getNumericValue(quotient.charAt(i));
+        }
+
+        boolean isResultNegative = this.negative != divisor.negative;
+        return new BigNumber(trimLeadingZeros(digitArray), isResultNegative);
+    }
+
     //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
