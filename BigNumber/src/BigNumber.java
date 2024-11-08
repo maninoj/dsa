@@ -282,6 +282,16 @@ public class BigNumber {
         return true;
     }
 
+    private int compare(BigNumber other) {
+        if (this.digits.length > other.digits.length) return 1;
+        if (this.digits.length < other.digits.length) return -1;
+        for (int i = 0; i < this.digits.length; i++) {
+            if (this.digits[i] > other.digits[i]) return 1;
+            if (this.digits[i] < other.digits[i]) return -1;
+        }
+        return 0;
+    }
+
     //overriding toString
     @Override
     public String toString() {
