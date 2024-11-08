@@ -230,6 +230,19 @@ public class BigNumber {
         return result;
     }
 
+    public BigNumber divideByOne(int divisor) {
+        int[] result = new int[this.digits.length];
+        int remainder = 0;
+
+        for (int i = 0; i < this.digits.length; i++) {
+            int current = remainder * 10 + this.digits[i];
+            result[i] = current / divisor;
+            remainder = current % divisor;
+        }
+
+        return new BigNumber(trimLeadingZeros(result), this.negative);
+    }
+
     //increase by one
     public void increment(){
         BigNumber one = new BigNumber("1");
