@@ -37,7 +37,7 @@ public class Main {
         System.out.println("Divided: " + divided);
 
         // Test Power
-        BigNumber powered = num2.power(new BigNumber("15"));
+        BigNumber powered = num2.power(2);
         System.out.println("Powered: " + powered);
 
         // Test Factorial
