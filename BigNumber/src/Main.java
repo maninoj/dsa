@@ -61,5 +61,10 @@ public class Main {
 
         BigNumber negDifference = negNum2.subtract(negNum1);
         System.out.println("Negative Subtract: " + negDifference);
+
+        BigNumber k1 = new BigNumber("18");
+        BigNumber k2 = new BigNumber("2");
+        BigNumber k3 = k1.divide(k2);
+        System.out.println(k3);
     }
 }

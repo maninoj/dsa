@@ -194,7 +194,7 @@ public class BigNumber {
         BigNumber current = new BigNumber(this.digits, this.negative);
 
         while (!current.isZero()) {
-            result = result.multiply(current);
+            result = result.karatsubaMultiply(current);
             current = current.subtract(new BigNumber("1"));
         }
 
