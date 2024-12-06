@@ -287,7 +287,7 @@ public class MathExp {
             temp.add(calculate(i));
             points.add(temp);
         }
-        draw d = new draw(points);
+        Graph d = new Graph(points);
     }
 
 
