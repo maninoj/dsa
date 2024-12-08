@@ -1,75 +1,83 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Graph extends JFrame {
-    ArrayList<ArrayList<Double>> points;
-    private double scale = 20.0;
+    private ArrayList<ArrayList<Double>> dataPoints;
+    private double zoomFactor = 20.0;
 
     public Graph(ArrayList<ArrayList<Double>> points) {
-        this.points = points;
-        setTitle("Plot of the Expression");
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        getContentPane().setBackground(Color.WHITE);
-
-        JPanel drawingPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                drawPlot(g);
-            }
-        };
-
-        getContentPane().add(drawingPanel);
-        setVisible(true);
-
-        drawingPanel.setBackground(Color.WHITE);
-
-        drawingPanel.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                int rotation = e.getWheelRotation();
-                if (rotation < 0) {
-                    scale *= 1.1;
-                } else {
-                    scale /= 1.1;
-                }
-                repaint();
-            }
-        });
+        dataPoints = new ArrayList<>(points);
+        initializeUI();
     }
 
-    private void drawPlot(Graphics g) {
-        int originX = getWidth() / 2;
-        int originY = getHeight() / 2;
+    private void initializeUI() {
+//        setUndecorated(true); // Remove window borders
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Open in fullscreen
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Graph");
 
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        PlotCanvas canvas = new PlotCanvas();
+        canvas.setBackground(Color.BLACK);
+        add(canvas);
 
-        g2d.setColor(Color.BLACK);
-        g2d.drawLine(0, originY, getWidth(), originY);
-        g2d.drawLine(originX, 0, originX, getHeight());
+        canvas.addMouseWheelListener(e -> {
+            if (e.getWheelRotation() < 0) {
+                zoomFactor *= 1.1; // Zoom in
+            } else {
+                zoomFactor /= 1.1; // Zoom out
+            }
+            canvas.repaint();
+        });
 
-        g2d.setColor(Color.BLUE);
-        for (int i = 0; i < points.size(); i++) {
-            ArrayList<Double> point = points.get(i);
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    dispose(); // Exit fullscreen on ESC
+                }
+            }
+        });
 
-            int pixelX = originX + (int) (point.get(0) * scale);
-            int pixelY = originY - (int) (point.get(1) * scale);
+        setVisible(true);
+    }
 
-            g2d.fillOval(pixelX - 3, pixelY - 3, 6, 6);
+    private class PlotCanvas extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            renderPlot((Graphics2D) g);
+        }
 
-            if (i > 0) {
-                ArrayList<Double> prevPoint = points.get(i - 1);
-                int prevPixelX = originX + (int) (prevPoint.get(0) * scale);
-                int prevPixelY = originY - (int) (prevPoint.get(1) * scale);
+        private void renderPlot(Graphics2D g2d) {
+            int centerX = getWidth() / 2;
+            int centerY = getHeight() / 2;
 
-                g2d.draw(new Line2D.Double(prevPixelX, prevPixelY, pixelX, pixelY));
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2d.setColor(Color.WHITE);
+            g2d.drawLine(0, centerY, getWidth(), centerY); // X-axis
+            g2d.drawLine(centerX, 0, centerX, getHeight()); // Y-axis
+
+            g2d.setColor(Color.RED);
+            for (int i = 0; i < dataPoints.size(); i++) {
+                ArrayList<Double> point = dataPoints.get(i);
+
+                int x = centerX + (int) (point.get(0) * zoomFactor);
+                int y = centerY - (int) (point.get(1) * zoomFactor);
+
+                g2d.fillOval(x - 3, y - 3, 6, 6); // Draw point
+
+                if (i > 0) {
+                    ArrayList<Double> prev = dataPoints.get(i - 1);
+                    int prevX = centerX + (int) (prev.get(0) * zoomFactor);
+                    int prevY = centerY - (int) (prev.get(1) * zoomFactor);
+                    g2d.draw(new Line2D.Double(prevX, prevY, x, y)); // Draw connecting line
+                }
             }
         }
     }
+
 }

@@ -1,12 +1,11 @@
 public class Main {
     public static void main(String[] args) {
-        MathExp a = new MathExp();
-        // System.out.println(a.toPostFix());
-        // System.out.println(a.toPreFix());
-        // System.out.println(a.calculatePostfix());
-        // System.out.println(a.calculate(3));
-        a.graph();
+        MathExp mx = new MathExp();
+//         System.out.println(mx.toPostFix());
+//         System.out.println(mx.toPreFix());
+//         System.out.println(mx.calculate());
+//         System.out.println(mx.calculate(3));
+//         mx.graph();
 
-        // draw.paint();
     }
 }
