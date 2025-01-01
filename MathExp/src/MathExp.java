@@ -20,19 +20,19 @@ public class MathExp {
         int openParenthesesCount = 0;
 
         boolean prevIsDigit = false;
-        while (!input.equals("END")) {
+        while (!input.equals(".")) {
             if ((isDigitOrNegativeNumber(input) && !prevIsDigit) ||
                     (isOperator(input) && prevIsDigit) ||
                     (input.equals("x") && !prevIsDigit)) {
                 expression.push(input);
 
-                System.out.println("Enter the next element or END to exit");
+                System.out.println("Enter the next element or . to exit");
                 prevIsDigit = !prevIsDigit;
 
             } else if (input.equals("(")) {
                 expression.push(input);
                 openParenthesesCount++;
-                System.out.println("Enter the next element or END to exit");
+                System.out.println("Enter the next element or . to exit");
             } else if (input.equals(")")) {
                 if (openParenthesesCount > 0) {
                     expression.push(input);
@@ -41,13 +41,13 @@ public class MathExp {
                     System.out.println("No open parentheses to close.");
                 }
 
-                System.out.println("Enter the next element or END to exit");
+                System.out.println("Enter the next element or . to exit");
             } else if (isDigitOrNegativeNumber(input) && prevIsDigit) {
-                System.out.println("After a number, closing parentheses, or variable, there must be an operator. Please enter the element again or END to exit.");
+                System.out.println("After a number, closing parentheses, or variable, there must be an operator. Please enter the element again or . to exit.");
             } else if (isOperator(input) && !prevIsDigit) {
-                System.out.println("After an operator or opening parentheses, there must be a number or variable. Please enter the element again or END to exit.");
+                System.out.println("After an operator or opening parentheses, there must be a number or variable. Please enter the element again or . to exit.");
             } else {
-                System.out.println("Invalid input. Enter END if the expression is finished; otherwise, enter again.");
+                System.out.println("Invalid input. Enter . if the expression is finished; otherwise, enter again.");
             }
 
             input = scanner.nextLine();
