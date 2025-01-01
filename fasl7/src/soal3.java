@@ -20,7 +20,7 @@ public class soal3 {
         }
 
         temp2.next = temp;
-        temp.prev = temp2;
+        temp.pre = temp2;
 
     }
     int dequeue(){
@@ -44,14 +44,14 @@ public class soal3 {
         }
         else if (min == head){
             head = head.next;
-            head.prev = null;
+            head.pre = null;
         }
         else if(min.next == null){
-            min.prev.next = null;
+            min.pre.next = null;
         }
         else{
-            min.next.prev = min.prev;
-            min.prev.next = min.next;
+            min.next.pre = min.pre;
+            min.pre.next = min.next;
         }
 
         return min.data;
@@ -91,11 +91,11 @@ public class soal3 {
 class TwoLinkNode{
     public int data;
     public TwoLinkNode next;
-    public TwoLinkNode prev;
+    public TwoLinkNode pre;
 
     public TwoLinkNode(int data) {
         this.data = data;
         this.next = null;
-        this.prev = null;
+        this.pre = null;
     }
 }

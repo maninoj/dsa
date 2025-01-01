@@ -7,6 +7,6 @@ public class soal8 {
         }
 
         tail.next = head;
-        head.prev = tail;
+        head.pre = tail;
     }
 }
